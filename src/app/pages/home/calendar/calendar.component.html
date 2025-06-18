@@ -1,0 +1,21 @@
+ <!-- Calendario con mejor espaciado -->
+    <div class="grid grid-cols-7 gap-2 mb-6 px-2">
+      <!-- Días de la semana con estilo más destacado -->
+      <div *ngFor="let weekday of ['L', 'M', 'X', 'J', 'V', 'S', 'D']"
+        class="text-center font-medium text-gray-600 py-2 text-sm uppercase tracking-wide">
+        {{weekday}}
+      </div>
+
+      <!-- Días del mes con mejor feedback visual -->
+      <div *ngFor="let day of days()"
+        class="p-3 rounded-full text-center cursor-pointer transition-all duration-200 flex items-center justify-center relative"
+        [ngClass]="{
+            'bg-green-50 text-green-800 hover:bg-green-100 border border-green-200': day.available,
+            'bg-red-100 text-red-800 border border-red-200 cursor-not-allowed': !day.available,
+            'bg-blue-600 text-white shadow-lg ring-2 ring-blue-300 transform scale-105 z-10': selectedDate() === day.date,
+            'opacity-60': ''
+          }" (click)="day.available && onDateSelected(day.date)">
+        {{ day.date | date:'d' }}
+
+      </div>
+    </div>
